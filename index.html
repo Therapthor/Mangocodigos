@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codigos Manguito 🥭</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #15100a;
+    --surface: #1e160dcc;
+    --surface-2: #291d10;
+    --mango: #ff9f1c;
+    --mango-deep: #e85d04;
+    --leaf: #7a9a5e;
+    --cream: #f6ecd9;
+    --muted: #a3927a;
+    --danger: #d9534f;
+    --radius: 20px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;min-height:100vh;background:var(--bg);color:var(--cream);
+    font-family:'Inter',sans-serif;overflow-x:hidden;position:relative;
+  }
+  .bg-layer{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+  .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;}
+  .blob-1{width:520px;height:520px;background:radial-gradient(circle,var(--mango),transparent 70%);top:-160px;left:-120px;animation:drift1 22s ease-in-out infinite;}
+  .blob-2{width:420px;height:420px;background:radial-gradient(circle,var(--leaf),transparent 70%);bottom:-140px;right:-100px;opacity:.35;animation:drift2 26s ease-in-out infinite;}
+  .blob-3{width:340px;height:340px;background:radial-gradient(circle,var(--mango-deep),transparent 70%);top:40%;right:10%;opacity:.3;animation:drift3 30s ease-in-out infinite;}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,50px) scale(1.12);}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-50px,-40px) scale(1.1);}}
+  @keyframes drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-40px,60px) scale(.92);}}
+  .mango-float{position:absolute;font-size:22px;opacity:0;animation:floatUp linear infinite;filter:drop-shadow(0 0 6px rgba(255,159,28,.25));}
+  @keyframes floatUp{0%{transform:translateY(0) rotate(0deg);opacity:0;}10%{opacity:.16;}90%{opacity:.12;}100%{transform:translateY(-100vh) rotate(30deg);opacity:0;}}
+
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:56px 24px 60px;min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+  .hero{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:8vh;animation:heroIn .7s ease both;}
+  @keyframes heroIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  .brand-mark{width:64px;height:64px;border-radius:50%;background:linear-gradient(160deg,var(--mango),var(--mango-deep));display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 10px 32px rgba(232,93,4,.4),0 0 0 6px rgba(255,159,28,.08);margin-bottom:16px;animation:pulseBrand 4s ease-in-out infinite;}
+  @keyframes pulseBrand{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+  h1{font-family:'Fraunces',serif;font-weight:900;font-size:38px;margin:0;letter-spacing:-.5px;}
+  .tagline{color:var(--muted);font-size:14.5px;margin:8px 0 32px;}
+
+  .search-box{width:100%;max-width:480px;display:flex;align-items:center;gap:12px;background:var(--surface);backdrop-filter:blur(6px);border:1.5px solid rgba(255,159,28,.22);border-radius:999px;padding:16px 22px;transition:border-color .25s ease,box-shadow .25s ease,transform .2s ease;}
+  .search-box:focus-within{border-color:var(--mango);box-shadow:0 0 0 5px rgba(255,159,28,.12),0 12px 30px rgba(232,93,4,.15);transform:translateY(-1px);}
+  .search-box svg{flex-shrink:0;opacity:.55;color:var(--mango);}
+  .search-box input{flex:1;background:none;border:none;color:var(--cream);font-size:16px;padding:0;margin:0;font-family:'Inter',sans-serif;}
+  .search-box input:focus{outline:none;}
+  .search-clear{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;padding:4px 6px;transition:color .2s;}
+  .search-clear:hover{color:var(--danger);}
+
+  .results{width:100%;max-width:520px;margin-top:36px;}
+  .empty-state{color:var(--muted);font-size:13px;text-align:center;padding:8px;opacity:.8;}
+  .empty-state .mini-mango{display:block;font-size:26px;margin-bottom:8px;animation:sway 3s ease-in-out infinite;}
+  @keyframes sway{0%,100%{transform:rotate(-6deg);}50%{transform:rotate(6deg);}}
+
+  .card{background:var(--surface);backdrop-filter:blur(6px);border:1px solid rgba(255,159,28,.16);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:14px;animation:cardIn .35s cubic-bezier(.2,.8,.3,1) both;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease;}
+  .card:hover{border-color:rgba(255,159,28,.4);transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.25);}
+  @keyframes cardIn{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .label{font-size:13px;color:var(--muted);word-break:break-all;line-height:1.4;}
+  .code-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .code{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:32px;letter-spacing:3px;color:var(--cream);cursor:pointer;user-select:all;transition:color .2s ease;}
+  .code.copied{color:var(--leaf);}
+  .ring{width:42px;height:42px;flex-shrink:0;}
+  .ring circle{fill:none;stroke-width:4;}
+  .ring .bg{stroke:rgba(246,236,217,.08);}
+  .ring .fg{stroke:var(--mango);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 1s linear;}
+  .ring-num{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--muted);}
+  .hint{font-size:11px;color:var(--muted);}
+  footer{position:relative;z-index:1;text-align:center;margin-top:auto;padding-top:56px;color:var(--muted);font-size:11.5px;opacity:.7;}
+
+  .admin-icon{position:fixed;top:18px;right:20px;z-index:6;background:none;border:none;font-size:19px;cursor:pointer;opacity:.22;transition:opacity .25s ease,transform .25s ease;filter:grayscale(1);}
+  .admin-icon:hover{opacity:.75;transform:scale(1.12);}
+  .admin-icon.on{opacity:.85;filter:none;animation:adminGlow 2.5s ease-in-out infinite;}
+  @keyframes adminGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(122,154,94,0));}50%{filter:drop-shadow(0 0 6px rgba(122,154,94,.7));}}
+
+  .overlay{position:fixed;inset:0;background:rgba(10,7,3,.72);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px;z-index:10;}
+  .overlay.open{display:flex;animation:overlayIn .2s ease both;}
+  @keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
+  .panel{background:var(--surface-2);border:1px solid rgba(255,159,28,.25);border-radius:var(--radius);padding:28px;width:100%;max-width:400px;animation:panelIn .25s cubic-bezier(.2,.8,.3,1) both;max-height:86vh;overflow-y:auto;}
+  @keyframes panelIn{from{opacity:0;transform:translateY(10px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+  .panel h2{font-family:'Fraunces',serif;font-size:21px;margin:0 0 4px;display:flex;align-items:center;gap:8px;}
+  .panel p.desc{color:var(--muted);font-size:12.5px;margin:0 0 18px;line-height:1.5;}
+  label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;}
+  input{width:100%;background:var(--bg);border:1px solid rgba(255,159,28,.2);color:var(--cream);padding:11px 12px;border-radius:10px;font-size:14px;margin-bottom:14px;font-family:'Inter',sans-serif;transition:border-color .2s;}
+  input:focus{outline:none;border-color:var(--mango);}
+  .error{color:var(--danger);font-size:12px;margin:-8px 0 12px;display:none;}
+  .panel-btns{display:flex;gap:10px;margin-top:2px;}
+  .btn{flex:1;padding:11px;border-radius:10px;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .15s ease,filter .15s ease;}
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.08);}
+  .btn-primary{background:linear-gradient(160deg,var(--mango),var(--mango-deep));color:#1a1006;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(246,236,217,.15);}
+
+  .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .dash-badge{font-size:11px;color:var(--leaf);background:rgba(122,154,94,.12);border:1px solid rgba(122,154,94,.3);padding:4px 9px;border-radius:999px;}
+  .dash-add{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin:16px 0 18px;}
+  .dash-add input{margin-bottom:0;}
+  .dash-add button{white-space:nowrap;padding:0 16px;border-radius:10px;border:none;background:linear-gradient(160deg,var(--mango),var(--mango-deep));color:#1a1006;font-weight:700;cursor:pointer;font-size:13px;transition:transform .15s ease;}
+  .dash-add button:hover{transform:translateY(-1px);}
+  .dash-list{display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto;padding-right:4px;}
+  .dash-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);border:1px solid rgba(255,159,28,.14);border-radius:12px;padding:12px 14px;animation:cardIn .3s ease both;}
+  .dash-row .label{font-size:12px;max-width:150px;}
+  .dash-code{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;letter-spacing:1.5px;}
+  .dash-secs{font-size:11px;color:var(--muted);width:26px;text-align:center;}
+  .dash-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;padding:4px 6px;border-radius:6px;transition:color .15s;}
+  .dash-del:hover{color:var(--danger);background:rgba(217,83,79,.1);}
+  .dash-empty{color:var(--muted);font-size:12.5px;text-align:center;padding:20px 0;}
+  .dash-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:10px;}
+  .link-plain{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;}
+  .link-plain:hover{color:var(--danger);}
+</style>
+</head>
+<body>
+
+<div class="bg-layer" id="bg-layer"></div>
+<button class="admin-icon" id="admin-btn" title="Administrador">🔐</button>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="brand-mark">🥭</div>
+    <h1>Codigos Manguito</h1>
+    <div class="tagline">Tus códigos de verificación, listos para pelar</div>
+    <div class="search-box">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="search-input" type="text" placeholder="Escribe un nombre o correo para ver su código..." autocomplete="off">
+      <button class="search-clear" id="search-clear" title="Limpiar">✕</button>
+    </div>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <footer>🥭 Backend propio · los secretos nunca salen del servidor</footer>
+</div>
+
+<div class="overlay" id="admin-overlay">
+  <div class="panel">
+    <h2 id="admin-title">🔐 Acceso admin</h2>
+    <p class="desc" id="admin-desc">Ingresa el PIN para gestionar las cuentas.</p>
+    <label for="in-pin">PIN</label>
+    <input id="in-pin" type="password" inputmode="numeric" placeholder="••••" autocomplete="off">
+    <label for="in-pin-confirm" id="lbl-pin-confirm" style="display:none;">Confirmar PIN</label>
+    <input id="in-pin-confirm" type="password" inputmode="numeric" placeholder="••••" autocomplete="off" style="display:none;">
+    <div class="error" id="admin-err">PIN incorrecto.</div>
+    <div class="panel-btns">
+      <button class="btn btn-ghost" id="admin-cancel-btn">Cancelar</button>
+      <button class="btn btn-primary" id="admin-submit-btn">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="dash-overlay">
+  <div class="panel" style="max-width:460px;">
+    <div class="dash-header">
+      <h2>🥭 Panel admin</h2>
+      <span class="dash-badge">● en vivo</span>
+    </div>
+    <p class="desc">Todas las cuentas, actualizándose en tiempo real.</p>
+    <div class="dash-add">
+      <input id="dash-secret" type="text" placeholder="Código secreto">
+      <input id="dash-email" type="text" placeholder="Nombre (opcional)">
+      <button id="dash-add-btn">+ Agregar</button>
+    </div>
+    <div class="error" id="dash-err">Código secreto inválido.</div>
+    <div class="dash-list" id="dash-list"></div>
+    <div class="dash-footer">
+      <button class="link-plain" id="dash-logout-btn">Cerrar sesión</button>
+      <button class="btn btn-ghost" style="flex:none;padding:9px 18px;" id="dash-close-btn">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = ''; // mismo origen: el backend sirve este archivo
+let adminToken = null; // solo en memoria: se pierde al recargar, hay que reautenticarse
+
+async function api(path, opts = {}) {
+  const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+  if (adminToken) headers.Authorization = 'Bearer ' + adminToken;
+  const res = await fetch(API + path, Object.assign({}, opts, { headers }));
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(body.error || 'Error de red');
+  return body;
+}
+
+// ---------- fondo animado ----------
+function initBg() {
+  const layer = document.getElementById('bg-layer');
+  layer.innerHTML = `<div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>`;
+  for (let i = 0; i < 7; i++) {
+    const span = document.createElement('span');
+    span.className = 'mango-float';
+    span.textContent = '🥭';
+    span.style.left = (Math.random() * 100) + 'vw';
+    span.style.bottom = '-40px';
+    span.style.animationDuration = (18 + Math.random() * 14) + 's';
+    span.style.animationDelay = (Math.random() * 20) + 's';
+    span.style.fontSize = (16 + Math.random() * 14) + 'px';
+    layer.appendChild(span);
+  }
+}
+
+// ---------- búsqueda ----------
+const searchInput = document.getElementById('search-input');
+const results = document.getElementById('results');
+const RADIUS = 16;
+const CIRC = 2 * Math.PI * RADIUS;
+let lastResults = [];
+
+function cardTemplate(r) {
+  return `
+    <div class="card" data-id="${r.id}">
+      <div class="card-top"><div class="label">${r.label}</div></div>
+      <div class="code-row">
+        <div class="code" data-code="${r.id}" title="Clic para copiar">${r.code.slice(0,3)} ${r.code.slice(3)}</div>
+        <svg class="ring" viewBox="0 0 40 40">
+          <circle class="bg" cx="20" cy="20" r="${RADIUS}"></circle>
+          <circle class="fg" data-ring="${r.id}" cx="20" cy="20" r="${RADIUS}"
+            stroke-dasharray="${CIRC}" stroke-dashoffset="${CIRC * (1 - r.secondsLeft/30)}"></circle>
+          <text class="ring-num" data-secs="${r.id}" x="20" y="24" text-anchor="middle">${r.secondsLeft}</text>
+        </svg>
+      </div>
+      <div class="hint">🥭 vence cada 30s</div>
+    </div>
+  `;
+}
+
+async function refreshSearch() {
+  const q = searchInput.value.trim();
+  if (!q) {
+    lastResults = [];
+    results.innerHTML = `<div class="empty-state"><span class="mini-mango">🥭</span>Escribe un nombre o correo arriba para ver su código</div>`;
+    return;
+  }
+  try {
+    const { results: matches } = await api('/api/search?q=' + encodeURIComponent(q));
+    lastResults = matches;
+    if (matches.length === 0) {
+      results.innerHTML = `<div class="empty-state">No hay cuentas que coincidan con "${q}"</div>`;
+      return;
+    }
+    results.innerHTML = matches.map(cardTemplate).join('');
+    results.querySelectorAll('[data-code]').forEach(el => {
+      el.addEventListener('click', () => {
+        navigator.clipboard.writeText(el.textContent.replace(/\s/g,'')).then(() => {
+          el.classList.add('copied');
+          setTimeout(() => el.classList.remove('copied'), 800);
+        });
+      });
+    });
+  } catch (e) {
+    results.innerHTML = `<div class="empty-state">No se pudo conectar con el servidor.</div>`;
+  }
+}
+searchInput.addEventListener('input', refreshSearch);
+document.getElementById('search-clear').addEventListener('click', () => {
+  searchInput.value = '';
+  refreshSearch();
+  searchInput.focus();
+});
+setInterval(refreshSearch, 1000);
+
+// ---------- admin: login ----------
+const adminOverlay = document.getElementById('admin-overlay');
+const adminTitle = document.getElementById('admin-title');
+const adminDesc = document.getElementById('admin-desc');
+const inPin = document.getElementById('in-pin');
+const inPinConfirm = document.getElementById('in-pin-confirm');
+const lblPinConfirm = document.getElementById('lbl-pin-confirm');
+const adminErr = document.getElementById('admin-err');
+const adminBtn = document.getElementById('admin-btn');
+
+function refreshAdminIcon() { adminBtn.classList.toggle('on', !!adminToken); }
+
+async function openAdminEntry() {
+  if (adminToken) { openDashboard(); return; }
+  inPin.value = ''; inPinConfirm.value = '';
+  adminErr.style.display = 'none';
+  const { hasPin } = await api('/api/admin/status');
+  if (hasPin) {
+    adminTitle.textContent = '🔐 Acceso admin';
+    adminDesc.textContent = 'Ingresa el PIN para gestionar las cuentas.';
+    lblPinConfirm.style.display = 'none'; inPinConfirm.style.display = 'none';
+  } else {
+    adminTitle.textContent = '🥭 Crear PIN admin';
+    adminDesc.textContent = 'Este PIN protegerá el panel de administración. Guárdalo bien.';
+    lblPinConfirm.style.display = ''; inPinConfirm.style.display = '';
+  }
+  adminOverlay.classList.add('open');
+  inPin.focus();
+}
+function closeAdminOverlay() { adminOverlay.classList.remove('open'); }
+adminBtn.addEventListener('click', openAdminEntry);
+document.getElementById('admin-cancel-btn').addEventListener('click', closeAdminOverlay);
+adminOverlay.addEventListener('click', (e) => { if (e.target === adminOverlay) closeAdminOverlay(); });
+
+document.getElementById('admin-submit-btn').addEventListener('click', async () => {
+  const pin = inPin.value.trim();
+  const confirmPin = inPinConfirm.value.trim();
+  try {
+    const { token } = await api('/api/admin/login', {
+      method: 'POST',
+      body: JSON.stringify({ pin, confirmPin })
+    });
+    adminToken = token;
+    closeAdminOverlay();
+    refreshAdminIcon();
+    openDashboard();
+  } catch (e) {
+    adminErr.textContent = e.message;
+    adminErr.style.display = 'block';
+  }
+});
+
+// ---------- admin: dashboard ----------
+const dashOverlay = document.getElementById('dash-overlay');
+const dashList = document.getElementById('dash-list');
+const dashSecret = document.getElementById('dash-secret');
+const dashEmail = document.getElementById('dash-email');
+const dashErr = document.getElementById('dash-err');
+
+function dashRowTemplate(a) {
+  return `
+    <div class="dash-row" data-id="${a.id}">
+      <div class="label">${a.label}</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="dash-code">${a.code.slice(0,3)} ${a.code.slice(3)}</span>
+        <span class="dash-secs">${a.secondsLeft}s</span>
+        <button class="dash-del" data-ddel="${a.id}" title="Eliminar">✕</button>
+      </div>
+    </div>
+  `;
+}
+
+async function refreshDashboard() {
+  if (!dashOverlay.classList.contains('open') || !adminToken) return;
+  try {
+    const { accounts } = await api('/api/admin/accounts');
+    dashList.innerHTML = accounts.length
+      ? accounts.map(dashRowTemplate).join('')
+      : `<div class="dash-empty">No hay cuentas todavía.</div>`;
+    dashList.querySelectorAll('[data-ddel]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        await api('/api/admin/accounts/' + btn.dataset.ddel, { method: 'DELETE' });
+        refreshDashboard();
+        refreshSearch();
+      });
+    });
+  } catch (e) {
+    if (e.message === 'No autorizado') { adminToken = null; refreshAdminIcon(); closeDashboard(); }
+  }
+}
+setInterval(refreshDashboard, 1000);
+
+function openDashboard() {
+  dashErr.style.display = 'none';
+  dashSecret.value = ''; dashEmail.value = '';
+  dashOverlay.classList.add('open');
+  refreshDashboard();
+}
+function closeDashboard() { dashOverlay.classList.remove('open'); }
+document.getElementById('dash-close-btn').addEventListener('click', closeDashboard);
+dashOverlay.addEventListener('click', (e) => { if (e.target === dashOverlay) closeDashboard(); });
+document.getElementById('dash-logout-btn').addEventListener('click', async () => {
+  try { await api('/api/admin/logout', { method: 'POST' }); } catch (e) {}
+  adminToken = null;
+  refreshAdminIcon();
+  closeDashboard();
+});
+
+document.getElementById('dash-add-btn').addEventListener('click', async () => {
+  try {
+    await api('/api/admin/accounts', {
+      method: 'POST',
+      body: JSON.stringify({ secret: dashSecret.value, email: dashEmail.value })
+    });
+    dashErr.style.display = 'none';
+    dashSecret.value = ''; dashEmail.value = '';
+    refreshDashboard();
+    refreshSearch();
+  } catch (e) {
+    dashErr.textContent = e.message;
+    dashErr.style.display = 'block';
+  }
+});
+
+// ---------- init ----------
+initBg();
+refreshAdminIcon();
+refreshSearch();
+</script>
+</body>
+</html>

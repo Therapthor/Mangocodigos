@@ -1,0 +1,9 @@
+{
+  "accounts": [
+    { "id": "acc-1", "email": "unmet_pursuit_5f+vn93rm@icloud.com", "secret": "DCOHRW5PFTFD5ZEAET222DM2W4OUAHQC" },
+    { "id": "acc-2", "email": "74-neglect-oldie+sc7crq@icloud.com", "secret": "FRXXBECWIGM752NPXNHMLGDBWQFCDKVF" },
+    { "id": "acc-3", "email": "m.ikanmeso643@gmail.com", "secret": "S4BUNN2SUD4Y36BIXQVHR25ZIETSXRNO" },
+    { "id": "acc-4", "email": "m.aiyeunguoi43287@gmail.com", "secret": "2E4PVPFRRUTTKOGOPJRIQWX67TT2BLVX" }
+  ],
+  "adminHash": null
+}
