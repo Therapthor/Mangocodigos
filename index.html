@@ -68,7 +68,7 @@
   .ring{width:42px;height:42px;flex-shrink:0;}
   .ring circle{fill:none;stroke-width:4;}
   .ring .bg{stroke:rgba(246,236,217,.08);}
-  .ring .fg{stroke:var(--mango);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 1s linear;}
+  .ring .fg{stroke:var(--mango);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .9s linear;will-change:stroke-dashoffset;}
   .ring-num{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--muted);}
   .hint{font-size:11px;color:var(--muted);}
   footer{position:relative;z-index:1;text-align:center;margin-top:auto;padding-top:56px;color:var(--muted);font-size:11.5px;opacity:.7;}
@@ -129,7 +129,7 @@ const searchInput = document.getElementById('search-input');
 const results = document.getElementById('results');
 const RADIUS = 16;
 const CIRC = 2 * Math.PI * RADIUS;
-let lastResults = [];
+let currentIds = []; // ids actualmente renderizados, para saber si hay que reconstruir o solo actualizar
 
 function cardTemplate(r) {
   return `
@@ -149,30 +149,57 @@ function cardTemplate(r) {
   `;
 }
 
+function bindCopy(el) {
+  el.addEventListener('click', () => {
+    navigator.clipboard.writeText(el.textContent.replace(/\s/g, '')).then(() => {
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 800);
+    });
+  });
+}
+
+// Reconstruye las tarjetas solo cuando cambia el conjunto de resultados.
+// Si son las mismas cuentas, actualiza in-place (código, anillo, segundos)
+// para no destruir el DOM cada segundo y evitar el parpadeo del temporizador.
+function renderResults(matches) {
+  const newIds = matches.map(r => r.id);
+  const sameSet = newIds.length === currentIds.length && newIds.every((id, i) => id === currentIds[i]);
+
+  if (!sameSet) {
+    results.innerHTML = matches.map(cardTemplate).join('');
+    results.querySelectorAll('[data-code]').forEach(bindCopy);
+    currentIds = newIds;
+    return;
+  }
+
+  matches.forEach(r => {
+    const codeEl = results.querySelector(`[data-code="${r.id}"]`);
+    const ringEl = results.querySelector(`[data-ring="${r.id}"]`);
+    const secsEl = results.querySelector(`[data-secs="${r.id}"]`);
+    const newCode = r.code.slice(0, 3) + ' ' + r.code.slice(3);
+    if (codeEl && codeEl.textContent !== newCode) codeEl.textContent = newCode;
+    if (ringEl) ringEl.setAttribute('stroke-dashoffset', CIRC * (1 - r.secondsLeft / 30));
+    if (secsEl) secsEl.textContent = r.secondsLeft;
+  });
+}
+
 async function refreshSearch() {
   const q = searchInput.value.trim();
   if (!q) {
-    lastResults = [];
+    currentIds = [];
     results.innerHTML = `<div class="empty-state"><span class="mini-mango">🥭</span>Escribe un nombre o correo arriba para ver su código</div>`;
     return;
   }
   try {
     const { results: matches } = await api('/api/search?q=' + encodeURIComponent(q));
-    lastResults = matches;
     if (matches.length === 0) {
+      currentIds = [];
       results.innerHTML = `<div class="empty-state">No hay cuentas que coincidan con "${q}"</div>`;
       return;
     }
-    results.innerHTML = matches.map(cardTemplate).join('');
-    results.querySelectorAll('[data-code]').forEach(el => {
-      el.addEventListener('click', () => {
-        navigator.clipboard.writeText(el.textContent.replace(/\s/g,'')).then(() => {
-          el.classList.add('copied');
-          setTimeout(() => el.classList.remove('copied'), 800);
-        });
-      });
-    });
+    renderResults(matches);
   } catch (e) {
+    currentIds = [];
     results.innerHTML = `<div class="empty-state">No se pudo conectar con el servidor.</div>`;
   }
 }
