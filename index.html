@@ -73,51 +73,11 @@
   .hint{font-size:11px;color:var(--muted);}
   footer{position:relative;z-index:1;text-align:center;margin-top:auto;padding-top:56px;color:var(--muted);font-size:11.5px;opacity:.7;}
 
-  .admin-icon{position:fixed;top:18px;right:20px;z-index:6;background:none;border:none;font-size:19px;cursor:pointer;opacity:.22;transition:opacity .25s ease,transform .25s ease;filter:grayscale(1);}
-  .admin-icon:hover{opacity:.75;transform:scale(1.12);}
-  .admin-icon.on{opacity:.85;filter:none;animation:adminGlow 2.5s ease-in-out infinite;}
-  @keyframes adminGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(122,154,94,0));}50%{filter:drop-shadow(0 0 6px rgba(122,154,94,.7));}}
-
-  .overlay{position:fixed;inset:0;background:rgba(10,7,3,.72);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px;z-index:10;}
-  .overlay.open{display:flex;animation:overlayIn .2s ease both;}
-  @keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
-  .panel{background:var(--surface-2);border:1px solid rgba(255,159,28,.25);border-radius:var(--radius);padding:28px;width:100%;max-width:400px;animation:panelIn .25s cubic-bezier(.2,.8,.3,1) both;max-height:86vh;overflow-y:auto;}
-  @keyframes panelIn{from{opacity:0;transform:translateY(10px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
-  .panel h2{font-family:'Fraunces',serif;font-size:21px;margin:0 0 4px;display:flex;align-items:center;gap:8px;}
-  .panel p.desc{color:var(--muted);font-size:12.5px;margin:0 0 18px;line-height:1.5;}
-  label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;}
-  input{width:100%;background:var(--bg);border:1px solid rgba(255,159,28,.2);color:var(--cream);padding:11px 12px;border-radius:10px;font-size:14px;margin-bottom:14px;font-family:'Inter',sans-serif;transition:border-color .2s;}
-  input:focus{outline:none;border-color:var(--mango);}
-  .error{color:var(--danger);font-size:12px;margin:-8px 0 12px;display:none;}
-  .panel-btns{display:flex;gap:10px;margin-top:2px;}
-  .btn{flex:1;padding:11px;border-radius:10px;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .15s ease,filter .15s ease;}
-  .btn:hover{transform:translateY(-1px);filter:brightness(1.08);}
-  .btn-primary{background:linear-gradient(160deg,var(--mango),var(--mango-deep));color:#1a1006;}
-  .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(246,236,217,.15);}
-
-  .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
-  .dash-badge{font-size:11px;color:var(--leaf);background:rgba(122,154,94,.12);border:1px solid rgba(122,154,94,.3);padding:4px 9px;border-radius:999px;}
-  .dash-add{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin:16px 0 18px;}
-  .dash-add input{margin-bottom:0;}
-  .dash-add button{white-space:nowrap;padding:0 16px;border-radius:10px;border:none;background:linear-gradient(160deg,var(--mango),var(--mango-deep));color:#1a1006;font-weight:700;cursor:pointer;font-size:13px;transition:transform .15s ease;}
-  .dash-add button:hover{transform:translateY(-1px);}
-  .dash-list{display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto;padding-right:4px;}
-  .dash-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);border:1px solid rgba(255,159,28,.14);border-radius:12px;padding:12px 14px;animation:cardIn .3s ease both;}
-  .dash-row .label{font-size:12px;max-width:150px;}
-  .dash-code{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;letter-spacing:1.5px;}
-  .dash-secs{font-size:11px;color:var(--muted);width:26px;text-align:center;}
-  .dash-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;padding:4px 6px;border-radius:6px;transition:color .15s;}
-  .dash-del:hover{color:var(--danger);background:rgba(217,83,79,.1);}
-  .dash-empty{color:var(--muted);font-size:12.5px;text-align:center;padding:20px 0;}
-  .dash-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:10px;}
-  .link-plain{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;}
-  .link-plain:hover{color:var(--danger);}
 </style>
 </head>
 <body>
 
 <div class="bg-layer" id="bg-layer"></div>
-<button class="admin-icon" id="admin-btn" title="Administrador">🔐</button>
 
 <div class="wrap">
   <div class="hero">
@@ -136,50 +96,11 @@
   <footer>🥭Creado por Liordark🥭</footer>
 </div>
 
-<div class="overlay" id="admin-overlay">
-  <div class="panel">
-    <h2 id="admin-title">🔐 Acceso admin</h2>
-    <p class="desc" id="admin-desc">Ingresa el PIN para gestionar las cuentas.</p>
-    <label for="in-pin">PIN</label>
-    <input id="in-pin" type="password" inputmode="numeric" placeholder="••••" autocomplete="off">
-    <label for="in-pin-confirm" id="lbl-pin-confirm" style="display:none;">Confirmar PIN</label>
-    <input id="in-pin-confirm" type="password" inputmode="numeric" placeholder="••••" autocomplete="off" style="display:none;">
-    <div class="error" id="admin-err">PIN incorrecto.</div>
-    <div class="panel-btns">
-      <button class="btn btn-ghost" id="admin-cancel-btn">Cancelar</button>
-      <button class="btn btn-primary" id="admin-submit-btn">Entrar</button>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="dash-overlay">
-  <div class="panel" style="max-width:460px;">
-    <div class="dash-header">
-      <h2>🥭 Panel admin</h2>
-      <span class="dash-badge">● en vivo</span>
-    </div>
-    <p class="desc">Todas las cuentas, actualizándose en tiempo real.</p>
-    <div class="dash-add">
-      <input id="dash-secret" type="text" placeholder="Código secreto">
-      <input id="dash-email" type="text" placeholder="Nombre (opcional)">
-      <button id="dash-add-btn">+ Agregar</button>
-    </div>
-    <div class="error" id="dash-err">Código secreto inválido.</div>
-    <div class="dash-list" id="dash-list"></div>
-    <div class="dash-footer">
-      <button class="link-plain" id="dash-logout-btn">Cerrar sesión</button>
-      <button class="btn btn-ghost" style="flex:none;padding:9px 18px;" id="dash-close-btn">Cerrar</button>
-    </div>
-  </div>
-</div>
-
 <script>
 const API = 'https://mangocodigos.onrender.com'; // mismo origen: el backend sirve este archivo
-let adminToken = null; // solo en memoria: se pierde al recargar, hay que reautenticarse
 
 async function api(path, opts = {}) {
   const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
-  if (adminToken) headers.Authorization = 'Bearer ' + adminToken;
   const res = await fetch(API + path, Object.assign({}, opts, { headers }));
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(body.error || 'Error de red');
@@ -263,133 +184,8 @@ document.getElementById('search-clear').addEventListener('click', () => {
 });
 setInterval(refreshSearch, 1000);
 
-// ---------- admin: login ----------
-const adminOverlay = document.getElementById('admin-overlay');
-const adminTitle = document.getElementById('admin-title');
-const adminDesc = document.getElementById('admin-desc');
-const inPin = document.getElementById('in-pin');
-const inPinConfirm = document.getElementById('in-pin-confirm');
-const lblPinConfirm = document.getElementById('lbl-pin-confirm');
-const adminErr = document.getElementById('admin-err');
-const adminBtn = document.getElementById('admin-btn');
-
-function refreshAdminIcon() { adminBtn.classList.toggle('on', !!adminToken); }
-
-async function openAdminEntry() {
-  if (adminToken) { openDashboard(); return; }
-  inPin.value = ''; inPinConfirm.value = '';
-  adminErr.style.display = 'none';
-  const { hasPin } = await api('/api/admin/status');
-  if (hasPin) {
-    adminTitle.textContent = '🔐 Acceso admin';
-    adminDesc.textContent = 'Ingresa el PIN para gestionar las cuentas.';
-    lblPinConfirm.style.display = 'none'; inPinConfirm.style.display = 'none';
-  } else {
-    adminTitle.textContent = '🥭 Crear PIN admin';
-    adminDesc.textContent = 'Este PIN protegerá el panel de administración. Guárdalo bien.';
-    lblPinConfirm.style.display = ''; inPinConfirm.style.display = '';
-  }
-  adminOverlay.classList.add('open');
-  inPin.focus();
-}
-function closeAdminOverlay() { adminOverlay.classList.remove('open'); }
-adminBtn.addEventListener('click', openAdminEntry);
-document.getElementById('admin-cancel-btn').addEventListener('click', closeAdminOverlay);
-adminOverlay.addEventListener('click', (e) => { if (e.target === adminOverlay) closeAdminOverlay(); });
-
-document.getElementById('admin-submit-btn').addEventListener('click', async () => {
-  const pin = inPin.value.trim();
-  const confirmPin = inPinConfirm.value.trim();
-  try {
-    const { token } = await api('/api/admin/login', {
-      method: 'POST',
-      body: JSON.stringify({ pin, confirmPin })
-    });
-    adminToken = token;
-    closeAdminOverlay();
-    refreshAdminIcon();
-    openDashboard();
-  } catch (e) {
-    adminErr.textContent = e.message;
-    adminErr.style.display = 'block';
-  }
-});
-
-// ---------- admin: dashboard ----------
-const dashOverlay = document.getElementById('dash-overlay');
-const dashList = document.getElementById('dash-list');
-const dashSecret = document.getElementById('dash-secret');
-const dashEmail = document.getElementById('dash-email');
-const dashErr = document.getElementById('dash-err');
-
-function dashRowTemplate(a) {
-  return `
-    <div class="dash-row" data-id="${a.id}">
-      <div class="label">${a.label}</div>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span class="dash-code">${a.code.slice(0,3)} ${a.code.slice(3)}</span>
-        <span class="dash-secs">${a.secondsLeft}s</span>
-        <button class="dash-del" data-ddel="${a.id}" title="Eliminar">✕</button>
-      </div>
-    </div>
-  `;
-}
-
-async function refreshDashboard() {
-  if (!dashOverlay.classList.contains('open') || !adminToken) return;
-  try {
-    const { accounts } = await api('/api/admin/accounts');
-    dashList.innerHTML = accounts.length
-      ? accounts.map(dashRowTemplate).join('')
-      : `<div class="dash-empty">No hay cuentas todavía.</div>`;
-    dashList.querySelectorAll('[data-ddel]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        await api('/api/admin/accounts/' + btn.dataset.ddel, { method: 'DELETE' });
-        refreshDashboard();
-        refreshSearch();
-      });
-    });
-  } catch (e) {
-    if (e.message === 'No autorizado') { adminToken = null; refreshAdminIcon(); closeDashboard(); }
-  }
-}
-setInterval(refreshDashboard, 1000);
-
-function openDashboard() {
-  dashErr.style.display = 'none';
-  dashSecret.value = ''; dashEmail.value = '';
-  dashOverlay.classList.add('open');
-  refreshDashboard();
-}
-function closeDashboard() { dashOverlay.classList.remove('open'); }
-document.getElementById('dash-close-btn').addEventListener('click', closeDashboard);
-dashOverlay.addEventListener('click', (e) => { if (e.target === dashOverlay) closeDashboard(); });
-document.getElementById('dash-logout-btn').addEventListener('click', async () => {
-  try { await api('/api/admin/logout', { method: 'POST' }); } catch (e) {}
-  adminToken = null;
-  refreshAdminIcon();
-  closeDashboard();
-});
-
-document.getElementById('dash-add-btn').addEventListener('click', async () => {
-  try {
-    await api('/api/admin/accounts', {
-      method: 'POST',
-      body: JSON.stringify({ secret: dashSecret.value, email: dashEmail.value })
-    });
-    dashErr.style.display = 'none';
-    dashSecret.value = ''; dashEmail.value = '';
-    refreshDashboard();
-    refreshSearch();
-  } catch (e) {
-    dashErr.textContent = e.message;
-    dashErr.style.display = 'block';
-  }
-});
-
 // ---------- init ----------
 initBg();
-refreshAdminIcon();
 refreshSearch();
 </script>
 </body>
